@@ -6,11 +6,16 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class Calculator {
+
+    // TODO: - Punkt vor Strich, mehr Rechenoperatoren
     int count = 0;
     String input = "";
+    String inputNew = "";
+    String interimResult = "";
+    String finalResult = "";
     String[] split;
     double result = Double.NaN;
-    Font  f2  = new Font(Font.SERIF,  Font.BOLD, 10);
+    Font f2 = new Font(Font.SERIF, Font.BOLD, 10);
 
 
     public Calculator() {
@@ -351,45 +356,69 @@ public class Calculator {
             @Override
             public void actionPerformed(ActionEvent e) {
                 text.getText();
-                if (input.contains("+")) {
-                    split = input.split("\\+");
+                if (input.contains(",")) {
+                    inputNew = input.replace(",", ".");
+                    System.out.println(inputNew);
+                }
+                if (inputNew.contains("+")) {
+                    split = inputNew.split("\\+");
                     if (split.length >= 2) {
                         result = Double.parseDouble(split[0]);
                         for (int i = 1; i < split.length; i++) { //arrWerte.length, da wir ja unterschiedliche Längen bei den Arrays haben; z.B. bei 3 Zahlen = 3 Stellen im Array
                             result = result + Double.parseDouble(split[i]);
                         }
                         System.out.println(result);
-                        text.setText(String.valueOf(result));
+                        interimResult = String.valueOf(result);
+                        finalResult = "";
+                        if (interimResult.contains(".")){
+                            finalResult = interimResult.replace(".", ",");
+                        }
+                        text.setText(String.valueOf(finalResult));
                     }
-                } else if (input.contains("-")) {
-                    split = input.split("\\-");
+                } else if (inputNew.contains("-")) {
+                    split = inputNew.split("\\-");
                     if (split.length >= 2) {
                         result = Double.parseDouble(split[0]);
                         for (int i = 1; i < split.length; i++) { //arrWerte.length, da wir ja unterschiedliche Längen bei den Arrays haben; z.B. bei 3 Zahlen = 3 Stellen im Array
                             result = result - Double.parseDouble(split[i]);
                         }
                         System.out.println(result);
-                        text.setText(String.valueOf(result));
+                        interimResult = String.valueOf(result);
+                        finalResult = "";
+                        if (interimResult.contains(".")){
+                            finalResult = interimResult.replace(".", ",");
+                        }
+                        text.setText(String.valueOf(finalResult));
                     }
-                } else if (input.contains("*")) {
-                    split = input.split("\\*");
+                } else if (inputNew.contains("*")) {
+                    split = inputNew.split("\\*");
                     if (split.length >= 2) {
                         result = Double.parseDouble(split[0]);
                         for (int i = 1; i < split.length; i++) { //arrWerte.length, da wir ja unterschiedliche Längen bei den Arrays haben; z.B. bei 3 Zahlen = 3 Stellen im Array
                             result = result * Double.parseDouble(split[i]);
                         }
                         System.out.println(result);
-                        text.setText(String.valueOf(result));
+                        interimResult = String.valueOf(result);
+                        finalResult = "";
+                        if (interimResult.contains(".")){
+                            finalResult = interimResult.replace(".", ",");
+                        }
+                        text.setText(String.valueOf(finalResult));
                     }
-                } else if (input.contains("/")) {
-                    split = input.split("\\/");
+                } else if (inputNew.contains("/")) {
+                    split = inputNew.split("\\/");
                     if (split.length >= 2) {
                         result = Double.parseDouble(split[0]);
                         for (int i = 1; i < split.length; i++) { //arrWerte.length, da wir ja unterschiedliche Längen bei den Arrays haben; z.B. bei 3 Zahlen = 3 Stellen im Array
                             result = result / Double.parseDouble(split[i]);
                         }
                         System.out.println(result);
-                        text.setText(String.valueOf(result));
+                        interimResult = String.valueOf(result);
+                        finalResult = "";
+                        if (interimResult.contains(".")){
+                            finalResult = interimResult.replace(".", ",");
+                        }
+                        text.setText(String.valueOf(finalResult));
                     }
                 }
                 if (count % 2 == 0) {
@@ -402,11 +431,13 @@ public class Calculator {
                     buttonIs.setFont(f2);
                     count++;
                 }
+
                 System.out.println(count);
             }
         });
 
     }
+
 
     public static void main(String[] args) {
         new Calculator();
