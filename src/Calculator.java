@@ -8,23 +8,29 @@ import java.awt.event.KeyEvent;
 public class Calculator {
 
     // TODO: - Punkt vor Strich, mehr Rechenoperatoren
+    // global variables
+
+    // counter for changing the colors of the buttons
     int count = 0;
+    // user's input
     String input = "";
+    // new input after replacing "."
     String inputNew = "";
+    // interim result for decimal numbers
     String interimResult = "";
     String finalResult = "";
+    // array to split in part
     String[] split;
     double result = Double.NaN;
-    Font f2 = new Font(Font.SERIF, Font.BOLD, 10);
 
 
     public Calculator() {
         JFrame frame = new JFrame();
         JPanel panel = new JPanel();
         panel.setLayout(null);
-
-//test
         JTextField text = new JTextField(100);
+
+        // to put only numbers into the field
         text.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
@@ -34,8 +40,8 @@ public class Calculator {
             }
         });
 
+        // position of button and text
         text.setBounds(100, 220, 230, 75);
-
         JButton buttonComma = new JButton(",");
         buttonComma.setBounds(220, 445, 50, 35);
         JButton buttonDelete = new JButton("AC");
@@ -80,7 +86,7 @@ public class Calculator {
 
         JLabel label = new JLabel("Test");
 
-
+        // adding buttons to the panel
         panel.setBorder(BorderFactory.createEmptyBorder(50, 30, 10, 30));
         panel.add(text);
         panel.add(buttonComma);
@@ -110,14 +116,7 @@ public class Calculator {
         frame.setVisible(true);
         frame.setIconImage(new ImageIcon("C:/Users/jakob/Pictures/Vom Handy/Wichtig/jzlogo.jpg.jpg").getImage().getScaledInstance(10000, 10000, java.awt.Image.SCALE_SMOOTH));
 
-//        TaschenerechnerMain test = new TaschenerechnerMain();
-//        TaschenerechnerMain.ausrechnen1();
-////        text.getText() = test.
-//        GuiSwing test2 = new GuiSwing();
-//
-//        ausrechnen1().;
-        //ActionListeners
-
+        // actionListener for each button
         buttonComma.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -356,10 +355,12 @@ public class Calculator {
             @Override
             public void actionPerformed(ActionEvent e) {
                 text.getText();
+                // checking if the text contains a comma, because Java can only handle points
                 if (input.contains(",")) {
                     inputNew = input.replace(",", ".");
                     System.out.println(inputNew);
                 }
+                // execute the operations
                 if (inputNew.contains("+")) {
                     split = inputNew.split("\\+");
                     if (split.length >= 2) {
@@ -369,8 +370,9 @@ public class Calculator {
                         }
                         System.out.println(result);
                         interimResult = String.valueOf(result);
+                        // replacing the "." with "," again
                         finalResult = "";
-                        if (interimResult.contains(".")){
+                        if (interimResult.contains(".")) {
                             finalResult = interimResult.replace(".", ",");
                         }
                         text.setText(String.valueOf(finalResult));
@@ -385,7 +387,7 @@ public class Calculator {
                         System.out.println(result);
                         interimResult = String.valueOf(result);
                         finalResult = "";
-                        if (interimResult.contains(".")){
+                        if (interimResult.contains(".")) {
                             finalResult = interimResult.replace(".", ",");
                         }
                         text.setText(String.valueOf(finalResult));
@@ -400,7 +402,7 @@ public class Calculator {
                         System.out.println(result);
                         interimResult = String.valueOf(result);
                         finalResult = "";
-                        if (interimResult.contains(".")){
+                        if (interimResult.contains(".")) {
                             finalResult = interimResult.replace(".", ",");
                         }
                         text.setText(String.valueOf(finalResult));
@@ -415,7 +417,7 @@ public class Calculator {
                         System.out.println(result);
                         interimResult = String.valueOf(result);
                         finalResult = "";
-                        if (interimResult.contains(".")){
+                        if (interimResult.contains(".")) {
                             finalResult = interimResult.replace(".", ",");
                         }
                         text.setText(String.valueOf(finalResult));
@@ -428,7 +430,6 @@ public class Calculator {
                 } else if (count % 2 == 1) {
                     buttonIs.setBackground(Color.black);
                     buttonIs.setForeground(Color.white);
-                    buttonIs.setFont(f2);
                     count++;
                 }
 
