@@ -1,3 +1,11 @@
+//################################################ BLITZ ################################################
+//#################################### https://github.com/BLITZ-GIT #####################################
+//####################################### https://jakegame.codes ########################################
+
+
+
+
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -27,8 +35,10 @@ public class Calculator {
     public Calculator() {
         JFrame frame = new JFrame();
         JPanel panel = new JPanel();
+        JLabel label = new JLabel();
         panel.setLayout(null);
         JTextField text = new JTextField(100);
+
 
         // to put only numbers into the field
         text.addKeyListener(new KeyAdapter() {
@@ -84,7 +94,6 @@ public class Calculator {
         buttonIs.setBounds(100, 490, 170, 35);
         buttonIs.setBackground(Color.YELLOW);
 
-        JLabel label = new JLabel("Test");
 
         // adding buttons to the panel
         panel.setBorder(BorderFactory.createEmptyBorder(50, 30, 10, 30));
@@ -354,13 +363,37 @@ public class Calculator {
         buttonIs.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                label.setText("Test");
+                label.setVisible(true);
                 text.getText();
-                // checking if the text contains a comma, because Java can only handle points
+                // checking if the text contains a comma, because Java can only handle dots
                 if (input.contains(",")) {
                     inputNew = input.replace(",", ".");
                     System.out.println(inputNew);
+                }else{
+                    inputNew = input;
                 }
                 // execute the operations
+//                if (inputNew.contains("+") && inputNew.contains("*")) {
+//                    System.out.println("test");
+//                    split = inputNew.split("\\+");
+//                    split = inputNew.split("\\*");
+//                    if (split.length >= 2) {
+//                        result = Double.parseDouble(split[0]);
+//                        for (int i = 1; i < split.length; i++) { //arrWerte.length, da wir ja unterschiedliche Längen bei den Arrays haben; z.B. bei 3 Zahlen = 3 Stellen im Array
+//                            result = result + Double.parseDouble(split[i]) * Double.parseDouble(split[split.length - 1]);
+//                        }
+//                        System.out.println(result);
+//                        interimResult = String.valueOf(result);
+//                        // replacing the "." with "," again
+//                        finalResult = "";
+//                        if (interimResult.contains(".")) {
+//                            finalResult = interimResult.replace(".", ",");
+//                        }
+//                        text.setText(String.valueOf(finalResult));
+//                        System.out.println(finalResult);
+//                    }
+//                }
                 if (inputNew.contains("+")) {
                     split = inputNew.split("\\+");
                     if (split.length >= 2) {
