@@ -27,6 +27,7 @@ public class Calculator {
     // interim result for decimal numbers
     String interimResult = "";
     String finalResult = "";
+    String deletedResult = "";
     // array to split in part
     String[] split;
     double result = Double.NaN;
@@ -57,6 +58,8 @@ public class Calculator {
         JButton buttonDelete = new JButton("AC");
         buttonDelete.setBackground(Color.GREEN);
         buttonDelete.setBounds(280, 490, 50, 35);
+        JButton buttonDelOne = new JButton("C");
+        buttonDelOne.setBounds(340, 490, 50, 35);
         JButton button0 = new JButton("0");
         button0.setBounds(100, 445, 110, 35);
         JButton button1 = new JButton("1");
@@ -100,6 +103,7 @@ public class Calculator {
         panel.add(text);
         panel.add(buttonComma);
         panel.add(buttonDelete);
+        panel.add(buttonDelOne);
         panel.add(button0);
         panel.add(button1);
         panel.add(button2);
@@ -147,6 +151,23 @@ public class Calculator {
 //                text.getText();
                 text.setText("");
                 input = "";
+            }
+        });
+        buttonDelOne.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                deletedResult = input.substring(0, input.length() - 1);
+                System.out.println(deletedResult);
+                input = deletedResult;
+                text.setText(deletedResult);
+                try {
+                    if (deletedResult.equals("") || input.equals("")){
+                        text.setText("Nothing to delete!");
+                    }
+                } catch (StringIndexOutOfBoundsException exception){
+                    System.out.println("passt");
+                    text.setText("Nothing to delete!");
+                }
             }
         });
         button0.addActionListener(new ActionListener() {
