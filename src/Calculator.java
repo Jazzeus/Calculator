@@ -3,9 +3,6 @@
 //####################################### https://jakegame.codes ########################################
 
 
-
-
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -156,17 +153,16 @@ public class Calculator {
         buttonDelOne.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                deletedResult = input.substring(0, input.length() - 1);
-                System.out.println(deletedResult);
-                input = deletedResult;
-                text.setText(deletedResult);
-                try {
-                    if (deletedResult.equals("") || input.equals("")){
+                if (input.equals("")){
+                    text.setText("Nothing to delete!");
+                }else {
+                    deletedResult = input.substring(0, input.length() - 1);
+                    System.out.println(deletedResult);
+                    input = deletedResult;
+                    text.setText(deletedResult);
+                    if (deletedResult.equals("")) {
                         text.setText("Nothing to delete!");
                     }
-                } catch (StringIndexOutOfBoundsException exception){
-                    System.out.println("passt");
-                    text.setText("Nothing to delete!");
                 }
             }
         });
@@ -391,7 +387,7 @@ public class Calculator {
                 if (input.contains(",")) {
                     inputNew = input.replace(",", ".");
                     System.out.println(inputNew);
-                }else{
+                } else {
                     inputNew = input;
                 }
                 // execute the operations
