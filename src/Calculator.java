@@ -49,13 +49,15 @@ public class Calculator {
         });
 
         // position of button and text
-        text.setBounds(100, 220, 230, 75);
+        text.setBounds(100, 220, 291, 75);
         JButton buttonComma = new JButton(",");
         buttonComma.setBounds(220, 445, 50, 35);
         JButton buttonDelete = new JButton("AC");
         buttonDelete.setBackground(Color.GREEN);
         buttonDelete.setBounds(280, 490, 50, 35);
         JButton buttonDelOne = new JButton("C");
+        buttonDelOne.setForeground(Color.white);
+        buttonDelOne.setBackground(new Color(0, 153, 0));
         buttonDelOne.setBounds(340, 490, 50, 35);
         JButton button0 = new JButton("0");
         button0.setBounds(100, 445, 110, 35);
@@ -78,6 +80,9 @@ public class Calculator {
         JButton button9 = new JButton("9");
         button9.setBounds(220, 310, 50, 35);
 
+        JButton buttonPercent = new JButton("%");
+        buttonPercent.setBackground(Color.orange);
+        buttonPercent.setBounds(340, 310, 50, 35);
         JButton buttonDivide = new JButton("/");
         buttonDivide.setBounds(280, 310, 50, 35);
         buttonDivide.setBackground(Color.ORANGE);
@@ -111,6 +116,7 @@ public class Calculator {
         panel.add(button7);
         panel.add(button8);
         panel.add(button9);
+        panel.add(buttonPercent);
         panel.add(buttonDivide);
         panel.add(buttonMulti);
         panel.add(buttonMinus);
@@ -153,9 +159,9 @@ public class Calculator {
         buttonDelOne.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (input.equals("")){
+                if (input.equals("")) {
                     text.setText("Nothing to delete!");
-                }else {
+                } else {
                     deletedResult = input.substring(0, input.length() - 1);
                     System.out.println(deletedResult);
                     input = deletedResult;
@@ -317,6 +323,14 @@ public class Calculator {
                 System.out.println(count);
             }
         });
+        buttonPercent.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                input = input + "%";
+                text.setText(input);
+                count++;
+            }
+        });
         buttonDivide.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -418,6 +432,20 @@ public class Calculator {
                         for (int i = 1; i < split.length; i++) { //arrWerte.length, da wir ja unterschiedliche Längen bei den Arrays haben; z.B. bei 3 Zahlen = 3 Stellen im Array
                             result = result + Double.parseDouble(split[i]);
                         }
+                        System.out.println(result);
+                        interimResult = String.valueOf(result);
+                        // replacing the "." with "," again
+                        finalResult = "";
+                        if (interimResult.contains(".")) {
+                            finalResult = interimResult.replace(".", ",");
+                        }
+                        text.setText(String.valueOf(finalResult));
+                    }
+                } else if (inputNew.contains("%")) {
+                    split = inputNew.split("\\%");
+                    if (split.length >= 1) {
+                        result = Double.parseDouble(split[0]);
+                        result = result / 100.00;
                         System.out.println(result);
                         interimResult = String.valueOf(result);
                         // replacing the "." with "," again
