@@ -80,6 +80,10 @@ public class Calculator {
         JButton button9 = new JButton("9");
         button9.setBounds(220, 310, 50, 35);
 
+        // Modulo
+        JButton buttonMod = new JButton("M");
+        buttonMod.setBackground(Color.orange);
+        buttonMod.setBounds(340, 355, 50, 35);
         JButton buttonPercent = new JButton("%");
         buttonPercent.setBackground(Color.orange);
         buttonPercent.setBounds(340, 310, 50, 35);
@@ -116,6 +120,7 @@ public class Calculator {
         panel.add(button7);
         panel.add(button8);
         panel.add(button9);
+        panel.add(buttonMod);
         panel.add(buttonPercent);
         panel.add(buttonDivide);
         panel.add(buttonMulti);
@@ -323,6 +328,14 @@ public class Calculator {
                 System.out.println(count);
             }
         });
+        buttonMod.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                input = input + "mod";
+                text.setText(input);
+                count++;
+            }
+        });
         buttonPercent.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -404,27 +417,6 @@ public class Calculator {
                 } else {
                     inputNew = input;
                 }
-                // execute the operations
-//                if (inputNew.contains("+") && inputNew.contains("*")) {
-//                    System.out.println("test");
-//                    split = inputNew.split("\\+");
-//                    split = inputNew.split("\\*");
-//                    if (split.length >= 2) {
-//                        result = Double.parseDouble(split[0]);
-//                        for (int i = 1; i < split.length; i++) { //arrWerte.length, da wir ja unterschiedliche Längen bei den Arrays haben; z.B. bei 3 Zahlen = 3 Stellen im Array
-//                            result = result + Double.parseDouble(split[i]) * Double.parseDouble(split[split.length - 1]);
-//                        }
-//                        System.out.println(result);
-//                        interimResult = String.valueOf(result);
-//                        // replacing the "." with "," again
-//                        finalResult = "";
-//                        if (interimResult.contains(".")) {
-//                            finalResult = interimResult.replace(".", ",");
-//                        }
-//                        text.setText(String.valueOf(finalResult));
-//                        System.out.println(finalResult);
-//                    }
-//                }
                 if (inputNew.contains("+")) {
                     split = inputNew.split("\\+");
                     if (split.length >= 2) {
@@ -452,6 +444,24 @@ public class Calculator {
                         finalResult = "";
                         if (interimResult.contains(".")) {
                             finalResult = interimResult.replace(".", ",");
+                        }
+                        text.setText(String.valueOf(finalResult));
+                    }
+                } else if (inputNew.contains("mod")) {
+                    split = inputNew.split("mod");
+                    if (split.length >= 1) {
+                        if (split.length >= 2) {
+                            result = Double.parseDouble(split[0]);
+                            for (int i = 1; i < split.length; i++) { //arrWerte.length, da wir ja unterschiedliche Längen bei den Arrays haben; z.B. bei 3 Zahlen = 3 Stellen im Array
+                                result = result % Double.parseDouble(split[i]);
+                            }
+                            System.out.println(result);
+                            interimResult = String.valueOf(result);
+                            finalResult = "";
+                            if (interimResult.contains(".")) {
+                                finalResult = interimResult.replace(".", ",");
+                            }
+                            text.setText(String.valueOf(finalResult));
                         }
                         text.setText(String.valueOf(finalResult));
                     }
