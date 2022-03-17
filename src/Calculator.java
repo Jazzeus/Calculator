@@ -9,10 +9,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 public class Calculator {
 
-    // TODO: - Punkt vor Strich, mehr Rechenoperatoren
+    // TODO: - Punkt vor Strich, mehr Rechenoperatoren, Fehlermeldungen, -- = +; Komma Tastatur
     // global variables
 
     // counter for changing the colors of the buttons
@@ -34,31 +38,49 @@ public class Calculator {
         JFrame frame = new JFrame();
         JPanel panel = new JPanel();
         JLabel label = new JLabel();
+        JLabel jz = new JLabel("© Jakob Zetzsche (Jazzeus)");
         panel.setLayout(null);
         JTextField text = new JTextField(100);
+        Font font1 = new Font("SansSerif", Font.BOLD, 20);
+        jz.setFont(font1);
+        jz.setBounds(100, 85, 300, 35);
 
 
         // to put only numbers into the field
         text.addKeyListener(new KeyAdapter() {
             public void keyTyped(KeyEvent e) {
                 char c = e.getKeyChar();
-                if (((c < '0') || (c > '9')) && (c != KeyEvent.VK_BACK_SPACE)) {
+                if ((c < '0' || c > '9') && c != KeyEvent.VK_BACK_SPACE) {
                     e.consume();  // if it's not a number, ignore the event
                 }
             }
         });
+        // buttons info
+        JButton www = new JButton(new ImageIcon("src/images/www.png"));
+        www.setBackground(Color.white);
+        www.setBounds(100, 120, 60, 45);
+        JButton github = new JButton(new ImageIcon("src/images/git.png"));
+        github.setBackground(Color.white);
+        github.setBounds(170, 120, 60, 45);
+        JButton twitter = new JButton(new ImageIcon("src/images/twitter.png"));
+        twitter.setBackground(Color.white);
+        twitter.setBounds(240, 120, 60, 45);
+        JButton reddit = new JButton(new ImageIcon("src/images/reddit.png"));
+        reddit.setBackground(Color.white);
+        reddit.setBounds(310, 120, 60, 45);
 
         // position of button and text
         text.setBounds(100, 220, 291, 75);
-        JButton buttonComma = new JButton(",");
+        text.setFont(font1);
+        JButton buttonComma = new JButton(new ImageIcon("src/images/comma.png"));
         buttonComma.setBounds(220, 445, 50, 35);
-        JButton buttonDelete = new JButton("AC");
+        JButton buttonDelete = new JButton(new ImageIcon("src/images/del.png"));
         buttonDelete.setBackground(Color.GREEN);
         buttonDelete.setBounds(280, 490, 50, 35);
-        JButton buttonDelOne = new JButton("C");
-        buttonDelOne.setForeground(Color.white);
-        buttonDelOne.setBackground(new Color(0, 153, 0));
-        buttonDelOne.setBounds(340, 490, 50, 35);
+        JButton clearOne = new JButton(new ImageIcon("src/images/clear.png"));
+        clearOne.setForeground(Color.white);
+        clearOne.setBackground(new Color(0, 153, 0));
+        clearOne.setBounds(340, 490, 50, 35);
         JButton button0 = new JButton("0");
         button0.setBounds(100, 445, 110, 35);
         JButton button1 = new JButton("1");
@@ -80,26 +102,41 @@ public class Calculator {
         JButton button9 = new JButton("9");
         button9.setBounds(220, 310, 50, 35);
 
+        // Button fonts
+        button0.setFont(font1);
+        button1.setFont(font1);
+        button2.setFont(font1);
+        button3.setFont(font1);
+        button4.setFont(font1);
+        button5.setFont(font1);
+        button6.setFont(font1);
+        button7.setFont(font1);
+        button8.setFont(font1);
+        button9.setFont(font1);
+
+        JButton buttonNegative = new JButton(new ImageIcon("src/images/plusMinus.png"));
+        buttonNegative.setBounds(340, 400, 50, 35);
+        buttonNegative.setBackground(Color.orange);
         // Modulo
-        JButton buttonMod = new JButton("M");
+        JButton buttonMod = new JButton(new ImageIcon("src/images/mod.png"));
         buttonMod.setBackground(Color.orange);
         buttonMod.setBounds(340, 355, 50, 35);
-        JButton buttonPercent = new JButton("%");
+        JButton buttonPercent = new JButton(new ImageIcon("src/images/percent.png"));
         buttonPercent.setBackground(Color.orange);
         buttonPercent.setBounds(340, 310, 50, 35);
-        JButton buttonDivide = new JButton("/");
+        JButton buttonDivide = new JButton(new ImageIcon("src/images/divide.png"));
         buttonDivide.setBounds(280, 310, 50, 35);
         buttonDivide.setBackground(Color.ORANGE);
-        JButton buttonMulti = new JButton("*");
+        JButton buttonMulti = new JButton(new ImageIcon("src/images/multi.png"));
         buttonMulti.setBounds(280, 355, 50, 35);
         buttonMulti.setBackground(Color.ORANGE);
-        JButton buttonMinus = new JButton("-");
+        JButton buttonMinus = new JButton(new ImageIcon("src/images/minus.png"));
         buttonMinus.setBounds(280, 400, 50, 35);
         buttonMinus.setBackground(Color.ORANGE);
-        JButton buttonPlus = new JButton("+");
+        JButton buttonPlus = new JButton(new ImageIcon("src/images/plus.png"));
         buttonPlus.setBounds(280, 445, 50, 35);
         buttonPlus.setBackground(Color.ORANGE);
-        JButton buttonIs = new JButton("=");
+        JButton buttonIs = new JButton(new ImageIcon("src/images/is.png"));
         buttonIs.setBounds(100, 490, 170, 35);
         buttonIs.setBackground(Color.YELLOW);
 
@@ -109,7 +146,7 @@ public class Calculator {
         panel.add(text);
         panel.add(buttonComma);
         panel.add(buttonDelete);
-        panel.add(buttonDelOne);
+        panel.add(clearOne);
         panel.add(button0);
         panel.add(button1);
         panel.add(button2);
@@ -120,6 +157,7 @@ public class Calculator {
         panel.add(button7);
         panel.add(button8);
         panel.add(button9);
+        panel.add(buttonNegative);
         panel.add(buttonMod);
         panel.add(buttonPercent);
         panel.add(buttonDivide);
@@ -128,16 +166,73 @@ public class Calculator {
         panel.add(buttonPlus);
         panel.add(buttonIs);
         panel.add(label);
+        panel.add(jz);
+        panel.add(www);
+        panel.add(github);
+        panel.add(twitter);
+        panel.add(reddit);
 
         frame.add(panel, BorderLayout.CENTER);
         frame.setVisible(true);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("JZ Taschenrechner");
+        frame.setTitle("Jazzeus Calculator");
         frame.pack();
         frame.setVisible(true);
-        frame.setIconImage(new ImageIcon("C:/Users/jakob/Pictures/Vom Handy/Wichtig/jzlogo.jpg.jpg").getImage().getScaledInstance(10000, 10000, java.awt.Image.SCALE_SMOOTH));
+        frame.setIconImage(new ImageIcon("src/images/jzlogo.jpg").getImage().getScaledInstance(10000, 10000, java.awt.Image.SCALE_SMOOTH));
 
         // actionListener for each button
+        www.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Desktop browser = Desktop.getDesktop();
+                try {
+                    browser.browse(new URI("https://jazzeus.com"));
+                } catch (IOException err) {
+
+                } catch (URISyntaxException err1) {
+
+                }
+            }
+        });
+        github.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Desktop browser = Desktop.getDesktop();
+                try {
+                    browser.browse(new URI("https://github.com/Jazzeus"));
+                } catch (IOException err) {
+
+                } catch (URISyntaxException err1) {
+
+                }
+            }
+        });
+        twitter.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Desktop browser = Desktop.getDesktop();
+                try {
+                    browser.browse(new URI("https://twitter.com/_Jazzeus_"));
+                } catch (IOException err) {
+
+                } catch (URISyntaxException err1) {
+
+                }
+            }
+        });
+        reddit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Desktop browser = Desktop.getDesktop();
+                try {
+                    browser.browse(new URI("https://reddit.com/user/JakeGame3"));
+                } catch (IOException err) {
+
+                } catch (URISyntaxException err1) {
+
+                }
+            }
+        });
         buttonComma.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -161,7 +256,7 @@ public class Calculator {
                 input = "";
             }
         });
-        buttonDelOne.addActionListener(new ActionListener() {
+        clearOne.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (input.equals("")) {
@@ -328,6 +423,12 @@ public class Calculator {
                 System.out.println(count);
             }
         });
+        buttonNegative.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                input = input + "-";
+            }
+        });
         buttonMod.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -433,7 +534,27 @@ public class Calculator {
                         }
                         text.setText(String.valueOf(finalResult));
                     }
-                } else if (inputNew.contains("%")) {
+                }
+//                else if (inputNew.contains("mod")) {
+//                    split = inputNew.split("mod");
+//                    if (split.length >= 1) {
+//                        if (split.length >= 2) {
+//                            result = Double.parseDouble(split[0]);
+//                            for (int i = 1; i < split.length; i++) { //arrWerte.length, da wir ja unterschiedliche Längen bei den Arrays haben; z.B. bei 3 Zahlen = 3 Stellen im Array
+//                                result = result % Double.parseDouble(split[i]);
+//                            }
+//                            System.out.println(result);
+//                            interimResult = String.valueOf(result);
+//                            finalResult = "";
+//                            if (interimResult.contains(".")) {
+//                                finalResult = interimResult.replace(".", ",");
+//                            }
+//                            text.setText(String.valueOf(finalResult));
+//                        }
+//                        text.setText(String.valueOf(finalResult));
+//                    }
+//                }
+                else if (inputNew.contains("%")) {
                     split = inputNew.split("\\%");
                     if (split.length >= 1) {
                         result = Double.parseDouble(split[0]);
