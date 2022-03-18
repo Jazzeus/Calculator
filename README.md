@@ -1,4 +1,5 @@
 # Calculator
+## NOT FINISHED YET, BUT COMING SOON!
 A simple calculator written in Java.
 <br>
 <img src="https://user-images.githubusercontent.com/71566988/157106892-b5159435-71a3-475e-b0c0-6e5045fb3efe.png" width="250"/>
