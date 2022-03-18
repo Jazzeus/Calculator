@@ -172,12 +172,15 @@ public class Calculator {
         panel.add(twitter);
         panel.add(reddit);
 
-        frame.add(panel, BorderLayout.CENTER);
-        frame.setVisible(true);
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setTitle("Jazzeus Calculator");
+        // frame actions
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setResizable(true);
+        frame.setPreferredSize(new Dimension(500, 600));
         frame.pack();
+        frame.setLocationRelativeTo(null);
         frame.setVisible(true);
+        frame.add(panel, BorderLayout.CENTER);
+        frame.setTitle("Jazzeus Calculator");
         frame.setIconImage(new ImageIcon("src/images/jzlogo.jpg").getImage().getScaledInstance(10000, 10000, java.awt.Image.SCALE_SMOOTH));
 
         // actionListener for each button
@@ -508,8 +511,6 @@ public class Calculator {
         buttonIs.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                label.setText("Test");
-                label.setVisible(true);
                 text.getText();
                 // checking if the text contains a comma, because Java can only handle dots
                 if (input.contains(",")) {
@@ -535,25 +536,6 @@ public class Calculator {
                         text.setText(String.valueOf(finalResult));
                     }
                 }
-//                else if (inputNew.contains("mod")) {
-//                    split = inputNew.split("mod");
-//                    if (split.length >= 1) {
-//                        if (split.length >= 2) {
-//                            result = Double.parseDouble(split[0]);
-//                            for (int i = 1; i < split.length; i++) { //arrWerte.length, da wir ja unterschiedliche Längen bei den Arrays haben; z.B. bei 3 Zahlen = 3 Stellen im Array
-//                                result = result % Double.parseDouble(split[i]);
-//                            }
-//                            System.out.println(result);
-//                            interimResult = String.valueOf(result);
-//                            finalResult = "";
-//                            if (interimResult.contains(".")) {
-//                                finalResult = interimResult.replace(".", ",");
-//                            }
-//                            text.setText(String.valueOf(finalResult));
-//                        }
-//                        text.setText(String.valueOf(finalResult));
-//                    }
-//                }
                 else if (inputNew.contains("%")) {
                     split = inputNew.split("\\%");
                     if (split.length >= 1) {
