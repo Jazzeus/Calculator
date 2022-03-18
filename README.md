@@ -5,8 +5,7 @@ A simple calculator written in Java.
 <img src="https://user-images.githubusercontent.com/71566988/157106892-b5159435-71a3-475e-b0c0-6e5045fb3efe.png" width="250"/>
 ### How to reach me: <br>
 
-> ### **Send me a DM via** <br>
-> ****
+
 > ### **Send me a DM via** <br>
 > ****
 >[<img src="https://user-images.githubusercontent.com/71566988/159006960-db3cfc48-0b7b-44fe-b98c-04b656e192a1.png"/>](https://discordapp.com/users/601715164835741696 "Send me a MESSAGE via Discord: Jazzeus#9999")
@@ -16,4 +15,4 @@ A simple calculator written in Java.
 >[<img src="https://user-images.githubusercontent.com/71566988/159009434-a0d51c56-e4c7-429f-b094-7bc49a0ad473.png" width="120" height="100"/>](https://dev.to/jazzeus "Send me a MESSAGE via DEV: jazzeus")<br>
 > ### **Or visit my [website](https://jazzeus.com)**
 > [<img src="https://media.giphy.com/media/ZgTR3UQ9XAWDvqy9jv/giphy.gif" width="100" height="100"/>](https://jakegame.codes "VIEW MY WEBSITE!")
-### Or start an issue in the [Issues]("https://github.com/Jazzeus/Calculator/issues") Tab
+> ### Or start an issue in the [Issues]("https://github.com/Jazzeus/Calculator/issues") Tab
