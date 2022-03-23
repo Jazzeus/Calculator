@@ -13,10 +13,20 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Arrays;
 
 public class Calculator {
 
-    // TODO: - Punkt vor Strich, mehr Rechenoperatoren, Fehlermeldungen, -- = +; Komma Tastatur
+    // TODO:
+    //  Punkt vor Strich
+    //  mehr Rechenoperatoren
+    //  Fehlermeldungen
+    //  -- = +;
+    //  normale Subtraktion wieder zum Laufen bringen
+    //  alle normalen Operationen wieder herstellen
+    //  Komma Tastatur
+
+
     // global variables
 
     // counter for changing the colors of the buttons
@@ -31,7 +41,10 @@ public class Calculator {
     String deletedResult = "";
     // array to split in part
     String[] split;
+    String[] splitMinus;
+    String newSplit;
     String test = "";
+    int newNumber = 0;
     double result = Double.NaN;
     boolean isNegative;
 
@@ -521,44 +534,67 @@ public class Calculator {
                 } else {
                     inputNew = input;
                 }
-                System.out.println("Länge" + inputNew.length());
-                System.out.println(inputNew.length() - 1);
-                System.out.println(inputNew.length() - 2);
-                if (inputNew.length() == 4) {
-
-
-                     test = (inputNew.substring(2, 4));
-                    if (test.contains("-")) {
-                        String string = String.valueOf(Math.abs(Integer.parseInt(test)));
-                        System.out.println("Test:" + inputNew);
-                        inputNew = inputNew.replace(inputNew.substring(2, 4), string);
-                        System.out.println("New" + inputNew);
-                        isNegative = true;
-                    } else {
-                        isNegative = false;
-                    }
-                }
-                System.out.println(test);
-                if (inputNew.contains("+")) {
+                System.out.println("T" + test);
+                if (inputNew.contains("-")) {
+                    System.out.println("if Minus");
+                    splitMinus = inputNew.split("\\-");
+                    System.out.println(splitMinus[0]);
+                    System.out.println("Test" + splitMinus[1]);
+                    newNumber = Integer.parseInt(splitMinus[1]);
+                    System.out.println("New Number" + newNumber);
+                    System.out.println("Input" + inputNew);
+                    inputNew = inputNew + newNumber;
+                    splitMinus[1] = String.valueOf(newNumber);
+                    System.out.println("newSplit" + splitMinus[1]);
+                    System.out.println("InputNew " + inputNew);
+                    newSplit = splitMinus[0] + splitMinus[1];
+                    System.out.println("Var NewSplit" + newSplit);
+                    isNegative = true;
+                } else {
+                    System.out.println("else minus");
+                    isNegative = false;
+                    newSplit = inputNew;
+                    System.out.println(newSplit);
                     System.out.println(inputNew);
-                    split = inputNew.split("\\+");
-                    System.out.println(split[0]);
-                    System.out.println(split[1]);
-                    if (split.length >= 2) {
-                        result = Double.parseDouble(split[0]);
-                        for (int i = 1; i < split.length; i++) { //arrWerte.length, da wir ja unterschiedliche Längen bei den Arrays haben; z.B. bei 3 Zahlen = 3 Stellen im Array
-                            result = result + Double.parseDouble(split[i]);
+                }
+                System.out.println("nach minus" + newSplit);
+                if (newSplit.contains("+")) {
+                    System.out.println("in plus");
+                    if (newSplit.contains("+") && isNegative == true) {
+                        System.out.println("inPlusNegative");
+                        split = newSplit.split("\\+");
+                        System.out.println("gesplitted");
+                        if (split.length >= 2) {
+                            result = Double.parseDouble(split[0]);
+                            for (int i = 1; i < split.length; i++) { //arrWerte.length, da wir ja unterschiedliche Längen bei den Arrays haben; z.B. bei 3 Zahlen = 3 Stellen im Array
+                                System.out.println("in result");
+                                result = result - Double.parseDouble(split[i]);
+                            }
                         }
-                        System.out.println(result);
-                        interimResult = String.valueOf(result);
-                        finalResult = "";
-                        if (interimResult.contains(".")) {
-                            finalResult = interimResult.replace(".", ",");
+                    } else {
+                        System.out.println("else");
+                        System.out.println(inputNew);
+                        split = newSplit.split("\\+");
+                        System.out.println(split[0]);
+                        System.out.println(split[1]);
+                        if (split.length >= 2) {
+                            result = Double.parseDouble(split[0]);
+                            for (int i = 1; i < split.length; i++) { //arrWerte.length, da wir ja unterschiedliche Längen bei den Arrays haben; z.B. bei 3 Zahlen = 3 Stellen im Array
+                                result = result + Double.parseDouble(split[i]);
+                            }
                         }
-                        text.setText(String.valueOf(finalResult));
                     }
-                } else if (inputNew.contains("%")) {
-                    split = inputNew.split("\\%");
+                    System.out.println(result);
+                    interimResult = String.valueOf(result);
+                    System.out.println("zwischenergebnis");
+                    finalResult = "";
+                    if (interimResult.contains(".")) {
+                        finalResult = interimResult.replace(".", ",");
+                    }
+                    text.setText(String.valueOf(finalResult));
+                    System.out.println("nach plus");
+                } else if (newSplit.contains("%")) {
+                    split = newSplit.split("\\%");
                     if (split.length >= 1) {
                         result = Double.parseDouble(split[0]);
                         result = result / 100.00;
@@ -569,10 +605,15 @@ public class Calculator {
                         if (interimResult.contains(".")) {
                             finalResult = interimResult.replace(".", ",");
                         }
-                        text.setText(String.valueOf(finalResult));
+                        if (isNegative == true) {
+                            text.setText("-" + String.valueOf(finalResult));
+                        } else {
+
+                            text.setText(String.valueOf(finalResult));
+                        }
                     }
-                } else if (inputNew.contains("mod")) {
-                    split = inputNew.split("mod");
+                } else if (newSplit.contains("mod")) {
+                    split = newSplit.split("mod");
                     if (split.length >= 1) {
                         if (split.length >= 2) {
                             result = Double.parseDouble(split[0]);
@@ -585,87 +626,80 @@ public class Calculator {
                             if (interimResult.contains(".")) {
                                 finalResult = interimResult.replace(".", ",");
                             }
-                            text.setText(String.valueOf(finalResult));
-                        }
-                        text.setText(String.valueOf(finalResult));
-                    }
-                } else if (inputNew.contains("-")) {
-                    split = inputNew.split("\\-");
-                    System.out.println(split[0]);
-                    System.out.println(split[1]);
-                    if (split.length >= 2) {
-                        result = Double.parseDouble(split[0]);
-                        for (int i = 1; i < split.length; i++) { //arrWerte.length, da wir ja unterschiedliche Längen bei den Arrays haben; z.B. bei 3 Zahlen = 3 Stellen im Array
-                            result = result - Double.parseDouble(split[i]);
-                        }
-                        System.out.println(result);
-                        interimResult = String.valueOf(result);
-                        finalResult = "";
-                        if (interimResult.contains(".")) {
-                            finalResult = interimResult.replace(".", ",");
-                        }
-                        text.setText(String.valueOf(finalResult));
-                    }
-                } else if (inputNew.contains("*")) {
-                    split = inputNew.split("\\*");
-                    if (split.length >= 2) {
-                        result = Double.parseDouble(split[0]);
-                        for (int i = 1; i < split.length; i++) { //arrWerte.length, da wir ja unterschiedliche Längen bei den Arrays haben; z.B. bei 3 Zahlen = 3 Stellen im Array
-                            result = result * Double.parseDouble(split[i]);
-                        }
-                        System.out.println(result);
-                        interimResult = String.valueOf(result);
-                        finalResult = "";
-                        if (interimResult.contains(".")) {
-                            finalResult = interimResult.replace(".", ",");
-                        }if (isNegative == true) {
-                            text.setText("-" + String.valueOf(finalResult));
-                        } else {
+                            if (isNegative == true) {
+                                text.setText("-" + String.valueOf(finalResult));
+                            } else {
 
-                            text.setText(String.valueOf(finalResult));
+                                text.setText(String.valueOf(finalResult));
+                            }
                         }
+                    } else if (newSplit.contains("-")) {
+                        System.out.println("minus");
+                        split = newSplit.split("\\-");
+                        System.out.println(split[0]);
+                        System.out.println("Test" + split[1]);
+                        if (split.length >= 2) {
+                            result = Double.parseDouble(split[0]);
+                            for (int i = 1; i < split.length; i++) { //arrWerte.length, da wir ja unterschiedliche Längen bei den Arrays haben; z.B. bei 3 Zahlen = 3 Stellen im Array
+                                result = result - Double.parseDouble(split[i]);
+                            }
+                            System.out.println(result);
+                            interimResult = String.valueOf(result);
+                            finalResult = "";
+                            if (interimResult.contains(".")) {
+                                finalResult = interimResult.replace(".", ",");
+                            }
+                            if (isNegative == true) {
+                                text.setText("-" + String.valueOf(finalResult));
+                            } else {
 
-                    }
-                } else if (inputNew.contains("/")) {
-                    System.out.println(inputNew);
-                    split = inputNew.split("\\/");
-                    System.out.println(split[0]);
-                    System.out.println(split[1]);
-                    if (split.length >= 2) {
-                        result = Double.parseDouble(split[0]);
-                        for (int i = 1; i < split.length; i++) { //arrWerte.length, da wir ja unterschiedliche Längen bei den Arrays haben; z.B. bei 3 Zahlen = 3 Stellen im Array
-                            result = result / Double.parseDouble(split[i]);
+                                text.setText(String.valueOf(finalResult));
+                            }
                         }
-                        System.out.println(result);
-                        interimResult = String.valueOf(result);
-                        finalResult = "";
-                        if (interimResult.contains(".")) {
-                            finalResult = interimResult.replace(".", ",");
-                        }
-                        if (isNegative == true) {
-                            text.setText("-" + String.valueOf(finalResult));
-                        } else {
+                    } else if (newSplit.contains("*")) {
+                        System.out.println("in multi");
+                        split = newSplit.split("\\*");
+                        if (split.length >= 2) {
+                            result = Double.parseDouble(split[0]);
+                            for (int i = 1; i < split.length; i++) { //arrWerte.length, da wir ja unterschiedliche Längen bei den Arrays haben; z.B. bei 3 Zahlen = 3 Stellen im Array
+                                result = result * Double.parseDouble(split[i]);
+                            }
+                            System.out.println(result);
+                            interimResult = String.valueOf(result);
+                            finalResult = "";
+                            if (interimResult.contains(".")) {
+                                finalResult = interimResult.replace(".", ",");
+                            }
+                            if (isNegative == true) {
+                                text.setText("-" + String.valueOf(finalResult));
+                            } else {
 
-                            text.setText(String.valueOf(finalResult));
+                                text.setText(String.valueOf(finalResult));
+                            }
                         }
-                    }
-                } else if (inputNew.contains("/-")) {
-                    System.out.println(inputNew);
-                    split = inputNew.split("\\/-");
-                    System.out.println(split[0]);
-                    System.out.println(split[1]);
-                    if (split.length >= 2) {
-                        result = Double.parseDouble(split[0]);
-                        for (int i = 1; i < split.length; i++) { //arrWerte.length, da wir ja unterschiedliche Längen bei den Arrays haben; z.B. bei 3 Zahlen = 3 Stellen im Array
-                            result = result + Double.parseDouble(split[i]);
+                    } else if (newSplit.contains("/")) {
+                        System.out.println("Div");
+                        System.out.println("Div Split" + newSplit);
+                        split = newSplit.split("\\/");
+                        System.out.println(split[0]);
+                        System.out.println(split[1]);
+                        if (split.length >= 2) {
+                            result = Double.parseDouble(split[0]);
+                            for (int i = 1; i < split.length; i++) { //arrWerte.length, da wir ja unterschiedliche Längen bei den Arrays haben; z.B. bei 3 Zahlen = 3 Stellen im Array
+                                result = result / Double.parseDouble(split[i]);
+                            }
+                            System.out.println(result);
+                            interimResult = String.valueOf(result);
+                            finalResult = "";
+                            if (interimResult.contains(".")) {
+                                finalResult = interimResult.replace(".", ",");
+                            }
+                            if (isNegative == true) {
+                                text.setText("-" + String.valueOf(finalResult));
+                            } else {
+                                text.setText(String.valueOf(finalResult));
+                            }
                         }
-                        System.out.println(result);
-                        interimResult = String.valueOf(result);
-                        finalResult = "";
-                        if (interimResult.contains(".")) {
-                            finalResult = interimResult.replace(".", ",");
-                        }
-                        text.setText(String.valueOf(finalResult));
                     }
                     if (count % 2 == 0) {
                         buttonIs.setBackground(Color.blue);
