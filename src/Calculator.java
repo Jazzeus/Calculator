@@ -31,7 +31,9 @@ public class Calculator {
     String deletedResult = "";
     // array to split in part
     String[] split;
+    String test = "";
     double result = Double.NaN;
+    boolean isNegative;
 
 
     public Calculator() {
@@ -519,8 +521,29 @@ public class Calculator {
                 } else {
                     inputNew = input;
                 }
+                System.out.println("Länge" + inputNew.length());
+                System.out.println(inputNew.length() - 1);
+                System.out.println(inputNew.length() - 2);
+                if (inputNew.length() == 4) {
+
+
+                     test = (inputNew.substring(2, 4));
+                    if (test.contains("-")) {
+                        String string = String.valueOf(Math.abs(Integer.parseInt(test)));
+                        System.out.println("Test:" + inputNew);
+                        inputNew = inputNew.replace(inputNew.substring(2, 4), string);
+                        System.out.println("New" + inputNew);
+                        isNegative = true;
+                    } else {
+                        isNegative = false;
+                    }
+                }
+                System.out.println(test);
                 if (inputNew.contains("+")) {
+                    System.out.println(inputNew);
                     split = inputNew.split("\\+");
+                    System.out.println(split[0]);
+                    System.out.println(split[1]);
                     if (split.length >= 2) {
                         result = Double.parseDouble(split[0]);
                         for (int i = 1; i < split.length; i++) { //arrWerte.length, da wir ja unterschiedliche Längen bei den Arrays haben; z.B. bei 3 Zahlen = 3 Stellen im Array
@@ -528,15 +551,13 @@ public class Calculator {
                         }
                         System.out.println(result);
                         interimResult = String.valueOf(result);
-                        // replacing the "." with "," again
                         finalResult = "";
                         if (interimResult.contains(".")) {
                             finalResult = interimResult.replace(".", ",");
                         }
                         text.setText(String.valueOf(finalResult));
                     }
-                }
-                else if (inputNew.contains("%")) {
+                } else if (inputNew.contains("%")) {
                     split = inputNew.split("\\%");
                     if (split.length >= 1) {
                         result = Double.parseDouble(split[0]);
@@ -570,6 +591,8 @@ public class Calculator {
                     }
                 } else if (inputNew.contains("-")) {
                     split = inputNew.split("\\-");
+                    System.out.println(split[0]);
+                    System.out.println(split[1]);
                     if (split.length >= 2) {
                         result = Double.parseDouble(split[0]);
                         for (int i = 1; i < split.length; i++) { //arrWerte.length, da wir ja unterschiedliche Längen bei den Arrays haben; z.B. bei 3 Zahlen = 3 Stellen im Array
@@ -595,11 +618,19 @@ public class Calculator {
                         finalResult = "";
                         if (interimResult.contains(".")) {
                             finalResult = interimResult.replace(".", ",");
+                        }if (isNegative == true) {
+                            text.setText("-" + String.valueOf(finalResult));
+                        } else {
+
+                            text.setText(String.valueOf(finalResult));
                         }
-                        text.setText(String.valueOf(finalResult));
+
                     }
                 } else if (inputNew.contains("/")) {
+                    System.out.println(inputNew);
                     split = inputNew.split("\\/");
+                    System.out.println(split[0]);
+                    System.out.println(split[1]);
                     if (split.length >= 2) {
                         result = Double.parseDouble(split[0]);
                         for (int i = 1; i < split.length; i++) { //arrWerte.length, da wir ja unterschiedliche Längen bei den Arrays haben; z.B. bei 3 Zahlen = 3 Stellen im Array
@@ -611,20 +642,43 @@ public class Calculator {
                         if (interimResult.contains(".")) {
                             finalResult = interimResult.replace(".", ",");
                         }
+                        if (isNegative == true) {
+                            text.setText("-" + String.valueOf(finalResult));
+                        } else {
+
+                            text.setText(String.valueOf(finalResult));
+                        }
+                    }
+                } else if (inputNew.contains("/-")) {
+                    System.out.println(inputNew);
+                    split = inputNew.split("\\/-");
+                    System.out.println(split[0]);
+                    System.out.println(split[1]);
+                    if (split.length >= 2) {
+                        result = Double.parseDouble(split[0]);
+                        for (int i = 1; i < split.length; i++) { //arrWerte.length, da wir ja unterschiedliche Längen bei den Arrays haben; z.B. bei 3 Zahlen = 3 Stellen im Array
+                            result = result + Double.parseDouble(split[i]);
+                        }
+                        System.out.println(result);
+                        interimResult = String.valueOf(result);
+                        finalResult = "";
+                        if (interimResult.contains(".")) {
+                            finalResult = interimResult.replace(".", ",");
+                        }
                         text.setText(String.valueOf(finalResult));
                     }
-                }
-                if (count % 2 == 0) {
-                    buttonIs.setBackground(Color.blue);
-                    buttonIs.setForeground(Color.white);
-                    count++;
-                } else if (count % 2 == 1) {
-                    buttonIs.setBackground(Color.black);
-                    buttonIs.setForeground(Color.white);
-                    count++;
-                }
+                    if (count % 2 == 0) {
+                        buttonIs.setBackground(Color.blue);
+                        buttonIs.setForeground(Color.white);
+                        count++;
+                    } else if (count % 2 == 1) {
+                        buttonIs.setBackground(Color.black);
+                        buttonIs.setForeground(Color.white);
+                        count++;
+                    }
 
-                System.out.println(count);
+                    System.out.println(count);
+                }
             }
         });
 
