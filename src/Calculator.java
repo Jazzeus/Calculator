@@ -445,6 +445,13 @@ public class Calculator {
             @Override
             public void actionPerformed(ActionEvent e) {
                 input = input + "-";
+                if (count % 2 == 0) {
+                    buttonNegative.setBackground(Color.ORANGE);
+                    count++;
+                } else if (count % 2 == 1) {
+                    buttonNegative.setBackground(Color.WHITE);
+                    count++;
+                }
             }
         });
         buttonMod.addActionListener(new ActionListener() {
@@ -550,6 +557,9 @@ public class Calculator {
                     newSplit = splitMinus[0] + splitMinus[1];
                     System.out.println("Var NewSplit" + newSplit);
                     isNegative = true;
+                    if (newSplit.contains("-")){
+                        isNegative = false;
+                    }
                 } else {
                     System.out.println("else minus");
                     isNegative = false;
