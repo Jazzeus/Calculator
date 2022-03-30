@@ -1,7 +1,9 @@
-//################################################ Jazzeus ################################################
+package otherVersions;//################################################ Jazzeus ################################################
 //#################################### https://github.com/Jazzeus #####################################
 //####################################### https://jazzeus.com ########################################
 
+
+import otherVersions.Calculator;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,8 +14,6 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.Arrays;
 
 public class Calculator2 {
 
@@ -195,7 +195,7 @@ public class Calculator2 {
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
         frame.add(panel, BorderLayout.CENTER);
-        frame.setTitle("Jazzeus Calculator");
+        frame.setTitle("Jazzeus otherVersions.Calculator");
         frame.setIconImage(new ImageIcon("src/images/jzlogo.jpg").getImage().getScaledInstance(10000, 10000, java.awt.Image.SCALE_SMOOTH));
 
 
