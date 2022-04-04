@@ -16,3 +16,4 @@ A simple calculator written in Java.
 > ### **Or visit my [website](https://jazzeus.com)**
 > [<img src="https://media.giphy.com/media/ZgTR3UQ9XAWDvqy9jv/giphy.gif" width="100" height="100"/>](https://jakegame.codes "VIEW MY WEBSITE!")
 > ### Or start an issue in the [Issues](https://github.com/Jazzeus/Calculator/issues) Tab
+j
